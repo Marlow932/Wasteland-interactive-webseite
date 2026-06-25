@@ -1,0 +1,120 @@
+/* ════════════════════════════════════════════════════════════
+   Wasteland Interactive — MOTION UTILITIES
+   Non-destruktive, opt-in Micro-Interactions zum Anheften an
+   BESTEHENDE Elemente. Nur GPU-beschleunigt (transform/opacity).
+
+   GARANTIE (non-destruktiv): Jede Reveal-Animation versteckt ihren
+   Inhalt NUR, wenn (a) JS aktiv das Attribut html[data-wl-motion]
+   gesetzt hat UND (b) der Nutzer Motion erlaubt. Fällt JS aus oder
+   ist „reduzierte Bewegung" aktiv, bleibt alles sichtbar und das
+   Layout exakt wie ohne diese Datei.
+   Aktivierung: <script src="assets/wl-motion.js" defer></script>
+   ──────────────────────────────────────────────────────────── */
+
+/* ── 1 · Lebendiger Hintergrund-Layer ─────────────────────────
+   Liegt HINTER dem Content (z-index:0), lenkt nicht ab. Ein sehr
+   langsamer, weicher Glow-Drift. Container braucht position:relative
+   und idealerweise isolation:isolate; eigener Content z-index:1. */
+.wl-bg-living { position: relative; isolation: isolate; }
+.wl-bg-living > * { position: relative; z-index: 1; }
+.wl-bg-living::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 50% at 20% 20%, rgba(0,240,255,0.10), transparent 70%),
+    radial-gradient(45% 55% at 85% 80%, rgba(26,48,102,0.22), transparent 72%);
+  background-repeat: no-repeat;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .wl-bg-living::before {
+    animation: wl-bg-drift 26s ease-in-out infinite alternate;
+    will-change: transform, opacity;
+  }
+}
+@keyframes wl-bg-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1);      opacity: 0.85; }
+  50%  { transform: translate3d(2%, -2%, 0) scale(1.06); opacity: 1; }
+  100% { transform: translate3d(-2%, 2%, 0) scale(1.02); opacity: 0.9; }
+}
+
+/* ── 2a · Button-Shine (Sweep über die Fläche bei Hover) ──────
+   An bestehende Buttons/Links anheften. Verändert die Ruhedarstellung
+   NICHT — der Glanz existiert nur als unsichtbarer ::after, der bei
+   Hover einmal durchläuft. */
+.wl-shine { position: relative; overflow: hidden; }
+.wl-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: skewX(-18deg);
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .wl-shine:hover::after { animation: wl-shine-sweep 0.75s var(--wl-ease-standard); }
+}
+@keyframes wl-shine-sweep {
+  0%   { left: -120%; opacity: 0; }
+  12%  { opacity: 1; }
+  100% { left: 130%;  opacity: 0; }
+}
+
+/* ── 2b · Edler Glow bei Hover (Buttons, CTAs) ────────────────
+   Sanfter cyan-Halo, der bei Hover aufglüht. Nur box-shadow. */
+.wl-glow-hover { transition: box-shadow var(--wl-dur-fast) var(--wl-ease-inout); }
+.wl-glow-hover:hover { box-shadow: var(--wl-glow-cta); }
+
+/* ── 2c · 3D-Tilt (reagiert auf Maus) ─────────────────────────
+   Basis-Styling; die Neigung setzt wl-motion.js via CSS-Variablen.
+   Ohne JS bleibt es eine normale Karte (rotate = 0). Layout-neutral:
+   nur transform, kein Versatz im Fluss. */
+.wl-tilt {
+  transform: perspective(900px) rotateX(var(--wl-rx, 0deg)) rotateY(var(--wl-ry, 0deg));
+  transform-style: preserve-3d;
+  transition: transform var(--wl-dur-fast) var(--wl-ease-inout);
+  will-change: transform;
+}
+.wl-tilt__glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--wl-glare, 0);
+  background: radial-gradient(40% 60% at var(--wl-mx, 50%) var(--wl-my, 0%), rgba(0,240,255,0.18), transparent 60%);
+  transition: opacity var(--wl-dur-fast) ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .wl-tilt { transform: none !important; }
+}
+
+/* ── 3 · Scroll-In Reveal (30px hoch, weiches Easing) ─────────
+   An bestehende Texte/Bilder/Boxen anheften: class="wl-reveal".
+   Optional gestaffelt mit data-wl-delay="120" (ms) am Element.
+   NON-DESTRUKTIV: versteckt nur unter html[data-wl-motion] +
+   erlaubter Motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-wl-motion] .wl-reveal {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+    transition: opacity 0.7s var(--wl-ease-soft), transform 0.7s var(--wl-ease-soft);
+    transition-delay: var(--wl-reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  html[data-wl-motion] .wl-reveal.is-in {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  /* Richtungs-Varianten */
+  html[data-wl-motion] .wl-reveal--left  { transform: translate3d(-30px, 0, 0); }
+  html[data-wl-motion] .wl-reveal--right { transform: translate3d(30px, 0, 0); }
+  html[data-wl-motion] .wl-reveal--scale { transform: scale(0.96); }
+  html[data-wl-motion] .wl-reveal--left.is-in,
+  html[data-wl-motion] .wl-reveal--right.is-in,
+  html[data-wl-motion] .wl-reveal--scale.is-in { transform: none; }
+}

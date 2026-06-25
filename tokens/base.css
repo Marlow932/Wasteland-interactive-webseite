@@ -1,0 +1,94 @@
+/* ════════════════════════════════════════════════════════════
+   Wasteland Interactive — BASE LAYER & BRAND UTILITIES
+   Global reset, body defaults, and the handful of signature
+   helper classes (.wl-label, .wl-grid-lines, .wl-noise,
+   .wl-text-glow, .wl-scanline) used across kits & specimens.
+   ──────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--wl-bg);
+  color: var(--wl-text);
+  font-family: var(--wl-font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: var(--wl-leading-normal);
+}
+
+::selection { background: var(--wl-cyan); color: #000; }
+
+a { color: inherit; text-decoration: none; }
+
+/* ── Signature label: "/ Leistungen 01-04 //" ──────────────── */
+.wl-label {
+  font-family: var(--wl-font-mono);
+  font-size: var(--wl-label);
+  font-weight: var(--wl-w-regular);
+  letter-spacing: var(--wl-tracking-label);
+  text-transform: uppercase;
+  color: var(--wl-text-muted);
+}
+.wl-label--cyan { color: var(--wl-cyan); }
+.wl-label--gold { color: var(--wl-gold); }
+
+/* ── Display heading helper ────────────────────────────────── */
+.wl-display {
+  font-family: var(--wl-font-display);
+  font-weight: var(--wl-w-black);
+  text-transform: uppercase;
+  letter-spacing: var(--wl-tracking-tighter);
+  line-height: var(--wl-leading-tight);
+  color: var(--wl-text);
+}
+
+/* ── Cyan text glow ────────────────────────────────────────── */
+.wl-text-glow { text-shadow: var(--wl-text-glow); }
+.wl-text-cyan { color: var(--wl-cyan); }
+
+/* ── 48px engineering grid backdrop ────────────────────────── */
+.wl-grid-lines {
+  background-image:
+    linear-gradient(var(--wl-grid-line) 1px, transparent 0),
+    linear-gradient(90deg, var(--wl-grid-line) 1px, transparent 0);
+  background-size: var(--wl-grid-cell) var(--wl-grid-cell);
+}
+
+/* ── Film-grain noise overlay (apply to a positioned ::layer) ─ */
+.wl-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: var(--wl-noise-opacity);
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)'/%3E%3C/svg%3E");
+}
+
+/* ── Scanline sweep (decorative, sits over hero panels) ────── */
+.wl-scanline {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.wl-scanline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(180deg, transparent, var(--wl-cyan-10), transparent);
+  animation: wl-scan 3s ease-in-out infinite;
+}
+
+/* ── Top accent rule: red → cyan gradient hairline ─────────── */
+.wl-accent-line {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--wl-red) 0%, var(--wl-cyan) 100%);
+}
+.wl-accent-line--cyan {
+  background: linear-gradient(90deg, transparent, var(--wl-cyan), transparent);
+}

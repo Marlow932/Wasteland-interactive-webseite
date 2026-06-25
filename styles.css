@@ -1,0 +1,13 @@
+/* ════════════════════════════════════════════════════════════
+   WASTELAND INTERACTIVE — DESIGN SYSTEM ENTRY POINT
+   Consumers link this single file. Order matters: tokens first,
+   then fonts, then the base/utility layer that references them.
+   ──────────────────────────────────────────────────────────── */
+
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/effects.css";
+@import "./tokens/motion.css";
+@import "./fonts.css";
+@import "./tokens/base.css";

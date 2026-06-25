@@ -1,5 +1,12 @@
+# https://wasteland-interactive.de/robots.txt
 User-agent: *
 Allow: /
-Disallow: /admin
+
+# Kein Crawling der internen Build-/Design-System-Dateien
+Disallow: /_ds_bundle.js
+Disallow: /_ds_manifest.json
+Disallow: /components/
+Disallow: /tokens/
+Disallow: /guidelines/
 
 Sitemap: https://wasteland-interactive.de/sitemap.xml

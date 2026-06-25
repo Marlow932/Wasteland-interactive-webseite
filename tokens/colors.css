@@ -1,0 +1,64 @@
+/* ════════════════════════════════════════════════════════════
+   Wasteland Interactive — COLOR TOKENS
+   Dark, terminal-grade palette. Black canvas, electric-cyan
+   primary, signal red, emerald success. Gold/silver denote
+   premium tiers; navy is ambient-only (orbs & glows).
+   ──────────────────────────────────────────────────────────── */
+:root {
+  /* ── Canvas / surfaces (near-black, slightly cool) ── */
+  --wl-bg:            #050505;   /* page canvas */
+  --wl-bg-pure:       #000000;   /* true black sections */
+  --wl-bg-deep:       #05070b;   /* cool deep panels */
+  --wl-surface:       #0a0a0a;   /* raised card / popover */
+  --wl-surface-2:     #05070b;   /* recessed card on black */
+  --wl-surface-3:     #030507;   /* darkest inset */
+  --wl-input:         #0a0a0a;   /* form field fill */
+
+  /* ── Borders (hairline → structural) ── */
+  --wl-border:        rgba(255,255,255,0.10);  /* default hairline */
+  --wl-border-15:     rgba(255,255,255,0.15);  /* hover / emphasis */
+  --wl-border-20:     rgba(255,255,255,0.20);  /* ghost-button rest */
+  --wl-border-05:     rgba(255,255,255,0.05);  /* faintest divider */
+  --wl-border-solid:  #1f1f1f;                 /* opaque equivalent */
+
+  /* ── Text ── */
+  --wl-text:          #ffffff;   /* primary on dark */
+  --wl-text-soft:     #d4d4d8;   /* zinc-300 — body emphasis */
+  --wl-text-muted:    #a1a1aa;   /* zinc-400 — body copy */
+  --wl-text-dim:      #71717a;   /* zinc-500 — meta / captions */
+  --wl-text-faint:    #52525b;   /* zinc-600 — disabled */
+
+  /* ── Brand accents ── */
+  --wl-cyan:          #00f0ff;   /* PRIMARY — CTAs, links, focus */
+  --wl-cyan-ink:      #000000;   /* text on cyan fill */
+  --wl-red:           #ff003c;   /* signal / destructive */
+  --wl-green:         #10b981;   /* success */
+  --wl-emerald:       #34d399;   /* success text on dark */
+  --wl-gold:          #c8a968;   /* premium tier accent */
+  --wl-silver:        #d8dee8;   /* secondary tier accent */
+  --wl-navy:          #1a3066;   /* ambient orb only */
+
+  /* ── Sentinel security line (product tier accents) ── */
+  --wl-sentinel-home:       #46e35a;   /* Home  · green shield  (B2C) */
+  --wl-sentinel-server:     #2ec5ff;   /* Server · blue shield */
+  --wl-sentinel-enterprise: #a567f5;   /* Enterprise · purple shield (B2B) */
+  --wl-sentinel-home-glow:       rgba(70,227,90,0.35);
+  --wl-sentinel-server-glow:     rgba(46,197,255,0.35);
+  --wl-sentinel-enterprise-glow: rgba(165,103,245,0.35);
+
+  /* ── Cyan tints (fills, washes) ── */
+  --wl-cyan-05:       rgba(0,240,255,0.05);
+  --wl-cyan-10:       rgba(0,240,255,0.10);
+  --wl-cyan-20:       rgba(0,240,255,0.20);
+  --wl-cyan-30:       rgba(0,240,255,0.30);
+  --wl-cyan-45:       rgba(0,240,255,0.45);
+
+  /* ── Semantic aliases ── */
+  --wl-primary:           var(--wl-cyan);
+  --wl-primary-ink:       var(--wl-cyan-ink);
+  --wl-surface-card:      var(--wl-surface-2);
+  --wl-text-body:         var(--wl-text-muted);
+  --wl-text-heading:      var(--wl-text);
+  --wl-link:              var(--wl-cyan);
+  --wl-focus-ring:        var(--wl-cyan);
+}

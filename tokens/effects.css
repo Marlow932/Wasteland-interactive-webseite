@@ -1,0 +1,81 @@
+/* ════════════════════════════════════════════════════════════
+   Wasteland Interactive — EFFECT TOKENS
+   Glow, shadow, motion, texture. The "interactive" half of the
+   brand: cyan glows, lifting motion-cards, ambient drift,
+   noise + scanline overlays.
+   ──────────────────────────────────────────────────────────── */
+:root {
+  /* ── Cyan glow (box-shadow) ── */
+  --wl-glow-xs:  0 0 6px  #00f0ff;
+  --wl-glow-sm:  0 0 10px rgba(0,240,255,0.15);
+  --wl-glow-md:  0 0 24px rgba(0,240,255,0.12);
+  --wl-glow-lg:  0 0 40px rgba(0,240,255,0.15);
+  --wl-glow-cta: 0 0 25px rgba(0,240,255,0.35);
+
+  /* ── Text glow ── */
+  --wl-text-glow: 0 0 24px rgba(0,240,255,0.35);
+
+  /* ── Elevation (depth shadows) ── */
+  --wl-shadow-card:  0 12px 32px rgba(0,0,0,0.20);
+  --wl-shadow-lift:  0 22px 50px rgba(0,0,0,0.24);  /* motion-card hover */
+  --wl-shadow-modal: 0 10px 40px rgba(0,0,0,0.50);
+  --wl-inset-hair:   inset 0 0 0 1px rgba(255,255,255,0.03);
+
+  /* ── Motion — easing ── */
+  --wl-ease-standard: cubic-bezier(0.22, 1, 0.36, 1);  /* @kind other */
+  --wl-ease-soft:     cubic-bezier(0.16, 1, 0.3, 1);   /* @kind other */
+  --wl-ease-inout:    cubic-bezier(0.4, 0, 0.2, 1);    /* @kind other */
+
+  /* ── Motion — duration ── */
+  --wl-dur-fast:  0.32s;   /* @kind other */
+  --wl-dur-base:  0.5s;    /* @kind other */
+  --wl-dur-slow:  0.78s;   /* @kind other */
+
+  /* ── Composed transitions ── */
+  --wl-transition:      all var(--wl-dur-fast) var(--wl-ease-inout);
+  --wl-transition-card: transform var(--wl-dur-base) var(--wl-ease-standard),
+                        border-color var(--wl-dur-fast) ease,
+                        box-shadow var(--wl-dur-base) ease;
+
+  /* ── Hover lift distance ── */
+  --wl-lift: -6px;   /* @kind other */
+
+  /* ── Ambient gradient washes ── */
+  --wl-ambient-cyan: rgba(0,240,255,0.065);
+  --wl-ambient-navy: rgba(18,35,82,0.17);
+  --wl-ambient-gold: rgba(200,169,104,0.12);
+
+  /* ── Texture overlays ── */
+  --wl-grid-line:  rgba(255,255,255,0.04);   /* grid-lines color */
+  --wl-noise-opacity: 0.035;   /* @kind other */
+}
+
+/* ── Brand keyframes (available system-wide) ── */
+@keyframes wl-pulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1; }
+}
+@keyframes wl-scan {
+  0%, 100% { transform: translateY(-100%); }
+  50%      { transform: translateY(100%); }
+}
+@keyframes wl-fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes wl-ambient-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(2%, -2%, 0); }
+}
+@keyframes wl-aurora {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.15); }
+}
+@keyframes wl-spin-3d {
+  from { transform: rotateX(-22deg) rotateY(0deg); }
+  to   { transform: rotateX(-22deg) rotateY(360deg); }
+}
+@keyframes wl-float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
