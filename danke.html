@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erfolg - Deine Lead Maschine wird aufgesetzt | Wasteland Interactive</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Erfolgreicher Kauf der Lead Maschine. Dein System wird nun für dich eingerichtet. Die Abrechnung erfolgt sicher über Digistore24.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://wasteland-interactive.de/danke"/>
+    
+    <!-- OpenGraph Meta Tags -->
+    <meta property="og:title" content="Erfolg - Deine Lead Maschine wird aufgesetzt">
+    <meta property="og:description" content="Vielen Dank für Ihren Kauf! Ihre Lead Maschine wird im Hintergrund eingerichtet.">
+    <meta property="og:type" content="website">
+
+    <!-- Load fonts and shared style from production site -->
+    <link rel="stylesheet" href="/fonts.css"/>
+    <link rel="stylesheet" href="/assets/audit-portal.css"/>
+    
+    <style>
+        :root {
+            --bg-color: #05070c;
+            --accent-cyan: #00f0ff;
+            --accent-red: #ff003c;
+            --accent-green: #10b981;
+            --text-main: #eaeaea;
+            --text-muted: #888888;
+            --card-bg: #0a0a0a;
+            --card-border: #222222;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Geist', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 90% 5%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
+                radial-gradient(circle at 5% 95%, rgba(0, 240, 255, 0.03) 0%, transparent 45%);
+        }
+
+        /* Nav Header */
+        header {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .logo {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 900;
+            font-size: 16px;
+            letter-spacing: 1px;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+        }
+
+        /* Success Card */
+        main {
+            width: 100%;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .success-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-top: 2px solid var(--accent-green);
+            padding: 40px;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            position: relative;
+        }
+
+        .success-card::after {
+            content: "";
+            position: absolute;
+            top: -2px;
+            right: 0;
+            width: 30px;
+            height: 2px;
+            background-color: var(--accent-cyan);
+        }
+
+        /* Success Check Icon */
+        .check-wrapper {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid var(--accent-green);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 24px auto;
+            color: var(--accent-green);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+        }
+
+        .success-card h1 {
+            font-family: 'Unbounded', sans-serif;
+            font-weight: 900;
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .onboarding-status {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Loader & Countdown Progress */
+        .loader-box {
+            background: #111111;
+            border: 1px solid #2d2d2d;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .loader-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-green) 100%);
+            border-radius: 2px;
+            transition: width 5s linear;
+        }
+
+        .countdown-notice {
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .countdown-notice span {
+            font-weight: bold;
+            color: var(--accent-cyan);
+        }
+
+        .cta-btn {
+            background: var(--accent-green);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            border-radius: 2px;
+            text-decoration: none;
+        }
+
+        .cta-btn:hover {
+            background-color: #fff;
+            color: #000;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+            transform: translateY(-1px);
+        }
+
+        /* Footer notice */
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .digistore-notice {
+            font-style: italic;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">Wasteland Interactive</div>
+    </header>
+
+    <!-- Main Success Area -->
+    <main>
+        <div class="success-card">
+            
+            <div class="check-wrapper">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            </div>
+
+            <h1>Vielen Dank für Ihren Kauf!</h1>
+            <p class="digistore-disclosure" style="font-size: 13px; color: var(--text-muted); font-style: italic; margin-top: -8px; margin-bottom: 20px;">
+                Die Abbuchung erfolgt durch Digistore24.
+            </p>
+            
+            <p class="onboarding-status">
+                Ihre Bestellung war erfolgreich. Ihre persönliche <strong>Lead Maschine</strong> wird im Hintergrund aufgesetzt.
+                <br><br>
+                <strong>Zugang per E-Mail:</strong> Sie erhalten Ihre Zugangsdaten in wenigen Minuten per E-Mail. Bitte prüfen Sie auch Ihren Spam-Ordner.
+            </p>
+
+            <h2 style="font-family: 'Unbounded', sans-serif; font-size: 14px; font-weight: 900; color: #fff; text-transform: uppercase; margin-top: 25px; margin-bottom: 12px; letter-spacing: 0.5px;">
+                Nächste Schritte
+            </h2>
+            <ul style="list-style: none; text-align: left; font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; display: inline-block; max-width: 400px; padding: 0;">
+                <li style="margin-bottom: 8px;">📧 <strong>1. E-Mail Postfach prüfen:</strong> Deine Zugangsdaten und die Rechnung von Digistore24 werden dir per E-Mail zugestellt.</li>
+                <li style="margin-bottom: 8px;">🔑 <strong>2. Login & Passworteinrichtung:</strong> Klicke auf den Link in der E-Mail, um dein Passwort festzulegen.</li>
+                <li style="margin-bottom: 8px;">🐙 <strong>3. Dashboard starten:</strong> Logge dich ein und starte deine erste Lead-Mining-Kampagne!</li>
+            </ul>
+
+            <div class="loader-box">
+                <div class="loader-text" id="statusLabel">Initialisiere Setup...</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progressBar"></div>
+                </div>
+                <p class="countdown-notice">
+                    Weiterleitung zum Dashboard in <span id="countdown">5</span> Sekunden...
+                </p>
+            </div>
+
+            <!-- Manual login backup button required by Digistore24 -->
+            <div style="margin-top: 25px;">
+                <a id="dashboardBtn" href="https://dashboard.45.146.255.254.sslip.io" class="cta-btn">
+                    Direkt zum Dashboard
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </a>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Footer Page Notice -->
+    <footer>
+        <p class="digistore-notice">Die Abbuchung erfolgt durch Digistore24</p>
+        <p>&copy; 2026 Wasteland Interactive. <a href="/impressum.html">Impressum</a> | <a href="/datenschutz.html">Datenschutz</a> | <a href="/agb.html">AGB</a> | <a href="/widerruf.html">Widerrufsbelehrung</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Extract parameters from Digistore24 redirect URL
+            var urlParams = new URLSearchParams(window.location.search);
+            
+            // Extract custom parameters or default to mock values
+            var email = urlParams.get('email') || urlParams.get('purchase_email') || 'sales@wasteland-interactive.de';
+            
+            // Unpack custom data (branche___stadt) passed via Digistore24's custom field
+            var customData = urlParams.get('custom');
+            var branche = 'Schreinerei';
+            var stadt = 'Bochum';
+            if (customData) {
+                var parts = customData.split('___');
+                if (parts.length >= 2) {
+                    branche = parts[0];
+                    stadt = parts[1];
+                }
+            } else {
+                // Fallback for direct testing
+                branche = urlParams.get('custom_branche') || urlParams.get('branche') || 'Schreinerei';
+                stadt = urlParams.get('custom_stadt') || urlParams.get('stadt') || 'Bochum';
+            }
+            
+            // Dashboard address on the client server
+            var dashboardBase = "https://dashboard.45.146.255.254.sslip.io";
+            
+            // Set the manual button link dynamically
+            var dashboardBtn = document.getElementById('dashboardBtn');
+            if (dashboardBtn) {
+                dashboardBtn.href = dashboardBase + "/?customer=" + encodeURIComponent(email);
+            }
+            
+            // 1. Instantly trigger the background lead mining and email generation
+            // so the backend starts processing in the background immediately
+            var statusLabel = document.getElementById('statusLabel');
+            statusLabel.innerText = "Triggere Lead-Maschine Outbound-Pipeline...";
+            
+            var formData = new FormData();
+            formData.append('email', email);
+            formData.append('branche', branche);
+            formData.append('stadt', stadt);
+            
+            // Make background call (POST) to start the run
+            fetch(dashboardBase + "/run", {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors' // Use no-cors since we are crossing origins, avoiding preflight blockers
+            }).then(function() {
+                console.log("Orchestrator successfully triggered in background.");
+            }).catch(function(err) {
+                console.error("Background trigger failed, continuing with redirect.", err);
+            });
+
+            // 2. Start progress bar and countdown
+            var progressBar = document.getElementById('progressBar');
+            var countdownVal = document.getElementById('countdown');
+            var seconds = 5;
+            
+            // Force progress fill via transition
+            setTimeout(function() {
+                progressBar.style.width = "100%";
+            }, 100);
+            
+            var interval = setInterval(function() {
+                seconds--;
+                countdownVal.innerText = seconds;
+                
+                if (seconds === 3) {
+                    statusLabel.innerText = "Generiere B2B Cold Outreach Vorlagen...";
+                } else if (seconds === 1) {
+                    statusLabel.innerText = "Lade Dashboard...";
+                }
+                
+                if (seconds <= 0) {
+                    clearInterval(interval);
+                    // Redirect to client dashboard, passing email directly as parameter
+                    window.location.href = dashboardBase + "/?customer=" + encodeURIComponent(email);
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
