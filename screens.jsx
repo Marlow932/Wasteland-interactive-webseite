@@ -187,11 +187,33 @@ function Pricing({ onContact }) {
 
 function Contact({ formRef }) {
   const STEPS = ["Leistung", "Kontakt", "Projekt"];
-  const [step, setStep] = React.useState(0);
-  const [svc, setSvc] = React.useState("");
-  const [sent, setSent] = React.useState(false);
+  const [step, setStep]       = React.useState(0);
+  const [svc, setSvc]         = React.useState("");
+  const [name, setName]       = React.useState("");
+  const [email, setEmail]     = React.useState("");
+  const [company, setCompany] = React.useState("");
+  const [message, setMessage] = React.useState("");
+  const [sent, setSent]       = React.useState(false);
+  const [error, setError]     = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const next = () => setStep((s) => Math.min(s + 1, STEPS.length - 1));
   const back = () => setStep((s) => Math.max(s - 1, 0));
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setLoading(true); setError(false);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ service: svc, name, email, company, message }),
+      });
+      if (res.ok) { setSent(true); }
+      else { setError(true); }
+    } catch (_) { setError(true); }
+    finally { setLoading(false); }
+  };
+
   return (
     <section ref={formRef} style={{ position: "relative", background: "rgba(0,0,0,0.55)", padding: "96px 24px", borderBottom: "1px solid var(--wl-border)" }}>
       <div style={{ maxWidth: "var(--wl-container)", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 0.9fr", gap: "48px", alignItems: "start" }}>
@@ -209,17 +231,17 @@ function Contact({ formRef }) {
             <div style={{ padding: "32px 0", textAlign: "center" }}>
               <div style={{ fontFamily: "var(--wl-font-display)", fontWeight: 900, fontSize: "20px", textTransform: "uppercase", color: "var(--wl-emerald)", textShadow: "0 0 18px rgba(16,185,129,0.35)" }}>Anfrage gesendet ✓</div>
               <p style={{ color: "var(--wl-text-muted)", fontSize: "14px", marginTop: "8px" }}>Wir melden uns innerhalb von 24 Stunden — werktags meist schneller.</p>
-              <div style={{ marginTop: "16px" }}><Button variant="ghost" onClick={() => { setSent(false); setStep(0); }}>Neue Anfrage</Button></div>
+              <div style={{ marginTop: "16px" }}><Button variant="ghost" onClick={() => { setSent(false); setStep(0); setSvc(""); setName(""); setEmail(""); setCompany(""); setMessage(""); }}>Neue Anfrage</Button></div>
             </div>
           ) : (
             <FunnelStepper steps={STEPS} current={step} onStepClick={setStep}>
-              <form onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+              <form onSubmit={submit}>
                 {step === 0 ? (
                   <div>
                     <FormField label="Welche Leistung interessiert Sie?" required hint="Ein Klick genügt — Details kommen später.">
                       <OptionGrid value={svc} onChange={(v) => { setSvc(v); setTimeout(next, 180); }} columns={2} options={[
-                        { value: "web", label: "Webseite" }, { value: "auto", label: "Automatisierung" },
-                        { value: "ki", label: "Software & KI" }, { value: "drohne", label: "Drohnen-Service" },
+                        { value: "Webseite", label: "Webseite" }, { value: "Automatisierung", label: "Automatisierung" },
+                        { value: "Software & KI", label: "Software & KI" }, { value: "Drohnen-Service", label: "Drohnen-Service" },
                       ]} />
                     </FormField>
                     <Button variant="ghost" full withArrow disabled={!svc} onClick={next}>Weiter</Button>
@@ -227,23 +249,24 @@ function Contact({ formRef }) {
                 ) : null}
                 {step === 1 ? (
                   <div>
-                    <FormField label="Ihr Name" required><Input placeholder="Vorname Nachname" autoFocus required /></FormField>
-                    <FormField label="Ihre E-Mail-Adresse" required><Input type="email" placeholder="name@firma.de" required /></FormField>
-                    <FormField label="Firma (optional)"><Input placeholder="Firmenname" /></FormField>
+                    <FormField label="Ihr Name" required><Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Vorname Nachname" autoFocus required /></FormField>
+                    <FormField label="Ihre E-Mail-Adresse" required><Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="name@firma.de" required /></FormField>
+                    <FormField label="Firma (optional)"><Input value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Firmenname" /></FormField>
                     <div style={{ display: "flex", gap: "12px" }}>
                       <Button variant="ghost" onClick={back}>Zurück</Button>
-                      <Button variant="primary" full withArrow onClick={next}>Weiter</Button>
+                      <Button variant="primary" full withArrow disabled={!name || !email} onClick={next}>Weiter</Button>
                     </div>
                   </div>
                 ) : null}
                 {step === 2 ? (
                   <div>
                     <FormField label="Worum geht es?" required hint="Kurz das Ziel — wir bereiten das Gespräch vor.">
-                      <Textarea rows={4} placeholder="Projektidee, aktueller Stand, Wunschtermin..." autoFocus required />
+                      <Textarea rows={4} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Projektidee, aktueller Stand, Wunschtermin..." autoFocus required />
                     </FormField>
+                    {error && <p style={{ color: "var(--wl-red, #f87171)", fontFamily: "var(--wl-font-mono)", fontSize: "11px", marginBottom: "10px" }}>Fehler beim Senden — bitte direkt an info@wasteland-interactive.de schreiben.</p>}
                     <div style={{ display: "flex", gap: "12px" }}>
                       <Button variant="ghost" onClick={back}>Zurück</Button>
-                      <Button variant="primary" full glow withArrow>Anfrage absenden</Button>
+                      <Button type="submit" variant="primary" full glow withArrow disabled={!message || loading}>{loading ? "Wird gesendet…" : "Anfrage absenden"}</Button>
                     </div>
                     <p style={{ margin: "12px 0 0", fontFamily: "var(--wl-font-mono)", fontSize: "10px", letterSpacing: "0.04em", color: "var(--wl-text-dim)", textAlign: "center" }}>
                       ✓ Kostenlos &amp; unverbindlich · keine Verpflichtung
