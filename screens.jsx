@@ -67,6 +67,12 @@ function TopNav({ onContact }) {
             onMouseEnter={(e) => (e.currentTarget.style.color = "var(--wl-cyan)")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "var(--wl-text-muted)")}>{n}</a>
         ))}
+        <a href="/sentinel/" style={{ fontFamily: "var(--wl-font-mono)", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--wl-text-muted)", textDecoration: "none" }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--wl-cyan)")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--wl-text-muted)")}>Sentinel</a>
+        <a href="/lead-engine/" style={{ fontFamily: "var(--wl-font-mono)", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--wl-text-muted)", textDecoration: "none" }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--wl-cyan)")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--wl-text-muted)")}>Lead Engine</a>
         <Button size="sm" withArrow onClick={onContact}>Erstgespräch</Button>
       </nav>
     </header>
@@ -252,16 +258,49 @@ function Contact({ formRef }) {
 }
 
 function Footer() {
+  const linkStyle = { color: "var(--wl-text-dim)", textDecoration: "none", transition: "color 0.2s" };
   return (
-    <footer style={{ position: "relative", background: "rgba(5,5,5,0.7)", padding: "48px 24px", color: "var(--wl-text-dim)" }}>
-      <div style={{ maxWidth: "var(--wl-container)", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
-        <div style={{ fontFamily: "var(--wl-font-display)", fontWeight: 900, fontSize: "14px", textTransform: "uppercase", color: "var(--wl-text-soft)" }}>
-          Wasteland <span style={{ color: "var(--wl-cyan)" }}>//</span> Interactive
+    <footer style={{ position: "relative", background: "rgba(5,5,5,0.7)", padding: "48px 24px", color: "var(--wl-text-dim)", borderTop: "1px solid var(--wl-border)" }}>
+      <div style={{ maxWidth: "var(--wl-container)", margin: "0 auto", display: "flex", flexDirection: "column", gap: "28px" }}>
+
+        {/* Top row: Brand + Produkte + Rechtliches */}
+        <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "32px" }}>
+          <div>
+            <div style={{ fontFamily: "var(--wl-font-display)", fontWeight: 900, fontSize: "16px", textTransform: "uppercase", color: "var(--wl-text-soft)", marginBottom: "12px" }}>
+              Wasteland <span style={{ color: "var(--wl-cyan)" }}>//</span> Interactive
+            </div>
+            <div style={{ fontFamily: "var(--wl-font-mono)", fontSize: "11px", lineHeight: "1.8" }}>
+              <div>info@wasteland-interactive.de</div>
+              <div>Leverkusen · NRW</div>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", gap: "48px", flexWrap: "wrap" }}>
+            <div>
+              <div style={{ fontFamily: "var(--wl-font-mono)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--wl-text-muted)", marginBottom: "10px" }}>Produkte</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px", fontFamily: "var(--wl-font-mono)", fontSize: "12px" }}>
+                <a href="/sentinel/" style={linkStyle}>Sentinel Home</a>
+                <a href="/lead-engine/" style={linkStyle}>Lead Engine</a>
+                <a href="/partner/" style={linkStyle}>Partner werden</a>
+                <a href="/connect/" style={linkStyle}>Wasteland Connect</a>
+              </div>
+            </div>
+            <div>
+              <div style={{ fontFamily: "var(--wl-font-mono)", fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--wl-text-muted)", marginBottom: "10px" }}>Rechtliches</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px", fontFamily: "var(--wl-font-mono)", fontSize: "12px" }}>
+                <a href="/impressum.html" style={linkStyle}>Impressum</a>
+                <a href="/datenschutz.html" style={linkStyle}>Datenschutz</a>
+                <a href="/agb.html" style={linkStyle}>AGB</a>
+                <a href="/widerruf.html" style={linkStyle}>Widerruf</a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div style={{ fontFamily: "var(--wl-font-mono)", fontSize: "11px", display: "flex", gap: "20px", flexWrap: "wrap" }}>
-          <span>info@wasteland-interactive.de</span>
-          <span>Leverkusen · NRW</span>
-          <span>© 2026</span>
+
+        {/* Bottom row */}
+        <div style={{ borderTop: "1px solid var(--wl-border)", paddingTop: "16px", fontFamily: "var(--wl-font-mono)", fontSize: "11px", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "8px" }}>
+          <span>© 2026 Wasteland Interactive · Alle Rechte vorbehalten</span>
+          <span style={{ color: "var(--wl-text-muted)" }}>Made with Claude // Leverkusen, NRW</span>
         </div>
       </div>
     </footer>
