@@ -73,6 +73,9 @@ function TopNav({ onContact }) {
         <a href="/lead-engine/" style={{ fontFamily: "var(--wl-font-mono)", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--wl-text-muted)", textDecoration: "none" }}
           onMouseEnter={(e) => (e.currentTarget.style.color = "var(--wl-cyan)")}
           onMouseLeave={(e) => (e.currentTarget.style.color = "var(--wl-text-muted)")}>Lead Engine</a>
+        <a href="/partner/" style={{ fontFamily: "var(--wl-font-mono)", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--wl-text-muted)", textDecoration: "none" }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "var(--wl-cyan)")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "var(--wl-text-muted)")}>Partner</a>
         <Button size="sm" withArrow onClick={onContact}>Erstgespräch</Button>
       </nav>
     </header>
@@ -300,7 +303,7 @@ function Footer() {
         {/* Bottom row */}
         <div style={{ borderTop: "1px solid var(--wl-border)", paddingTop: "16px", fontFamily: "var(--wl-font-mono)", fontSize: "11px", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "8px" }}>
           <span>© 2026 Wasteland Interactive · Alle Rechte vorbehalten</span>
-          <span style={{ color: "var(--wl-text-muted)" }}>Made with Claude // Leverkusen, NRW</span>
+          <span style={{ color: "var(--wl-text-muted)" }}>Leverkusen, NRW</span>
         </div>
       </div>
     </footer>
